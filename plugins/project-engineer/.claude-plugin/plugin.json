@@ -1,6 +1,6 @@
 {
   "name": "project-engineer",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Adaptive project-engineering plugin with light, feature, and project modes plus sync reminders",
   "author": {
     "name": "Project Engineer Maintainers"
@@ -12,6 +12,5 @@
     "project-engineering",
     "documentation"
   ],
-  "commands": "./commands/",
-  "hooks": "./hooks/hooks.json"
+  "commands": "./commands/"
 }

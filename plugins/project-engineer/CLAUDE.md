@@ -38,6 +38,7 @@ project-engineer-marketplace/
 - There is no build step.
 - Keep Markdown and JSON files UTF-8 without BOM.
 - Keep shell scripts on LF line endings so `bash` runs them correctly after install.
+- Do not point `plugin.json` at `./hooks/hooks.json`; Claude auto-loads the default hooks file from `hooks/`.
 - Hooks require `bash`.
 - `hooks/post-tool-use.sh` requires `python3` or `python`.
 
