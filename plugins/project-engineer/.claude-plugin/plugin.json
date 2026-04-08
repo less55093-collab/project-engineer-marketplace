@@ -1,0 +1,17 @@
+{
+  "name": "project-engineer",
+  "version": "2.0.0",
+  "description": "Adaptive project-engineering plugin with light, feature, and project modes plus sync reminders",
+  "author": {
+    "name": "Project Engineer Maintainers"
+  },
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "workflow",
+    "project-engineering",
+    "documentation"
+  ],
+  "commands": "./commands/",
+  "hooks": "./hooks/hooks.json"
+}
