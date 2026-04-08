@@ -52,6 +52,14 @@ claude plugin marketplace add .
 claude plugin install project-engineer@project-engineer-marketplace
 ```
 
+After installation, the stable invocation form is:
+
+```bash
+/project-engineer:pe help
+```
+
+Short-form `/pe ...` may depend on Claude Code's current plugin short-name resolution behavior.
+
 Fast development loop without installing through the marketplace:
 
 ```bash

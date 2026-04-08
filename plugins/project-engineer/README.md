@@ -62,16 +62,17 @@ Adds:
 ## Preferred Entry Points
 
 ```bash
-/pe init 我想做一个多人协作的任务管理工具
-/pe init --mode light 做一个单页落地页
-/pe focus
-/pe req-update 新增邮件通知
+/project-engineer:pe init 我想做一个多人协作的任务管理工具
+/project-engineer:pe init --mode light 做一个单页落地页
+/project-engineer:pe focus
+/project-engineer:pe req-update 新增邮件通知
 ```
 
-- `/pe init` auto-selects light, feature, or project mode.
-- `/pe init --mode ...` forces a specific mode.
-- `/pe focus` is the main “what should I do next?” command.
-- `/pe next` remains as a compatibility alias for `/focus`.
+- `/project-engineer:pe init` auto-selects light, feature, or project mode.
+- `/project-engineer:pe init --mode ...` forces a specific mode.
+- `/project-engineer:pe focus` is the main “what should I do next?” command.
+- `/project-engineer:pe next` remains as a compatibility alias for `/focus`.
+- On some Claude Code builds, `/pe ...` may also resolve as a short alias, but the namespaced form is the reliable one.
 
 ## What `/init` Generates
 
@@ -104,9 +105,9 @@ Typical auto-selection behavior:
 You can override it explicitly:
 
 ```bash
-/pe init --mode light <requirements>
-/pe init --mode feature <requirements>
-/pe init --mode project <requirements>
+/project-engineer:pe init --mode light <requirements>
+/project-engineer:pe init --mode feature <requirements>
+/project-engineer:pe init --mode project <requirements>
 ```
 
 ## Daily Workflow
@@ -114,7 +115,7 @@ You can override it explicitly:
 ### 1. Determine current focus
 
 ```bash
-/pe focus
+/project-engineer:pe focus
 ```
 
 - Project mode reads `.project-engineer/status.md` first.
@@ -124,7 +125,7 @@ You can override it explicitly:
 ### 2. Handle new requirements
 
 ```bash
-/pe req-update 新增邮件通知
+/project-engineer:pe req-update 新增邮件通知
 ```
 
 `/req-update` classifies the change first:
@@ -135,7 +136,7 @@ You can override it explicitly:
 ### 3. Update the execution board
 
 ```bash
-/pe status-update 完成登录 API 和 token 校验
+/project-engineer:pe status-update 完成登录 API 和 token 校验
 ```
 
 Use this in project mode or for legacy repos that still use `STATUS.md`.
@@ -143,14 +144,14 @@ Use this in project mode or for legacy repos that still use `STATUS.md`.
 ### 4. Update architecture or API docs
 
 ```bash
-/pe arc-update 新增鉴权中间件
-/pe api-gen routes/auth.ts
+/project-engineer:pe arc-update 新增鉴权中间件
+/project-engineer:pe api-gen routes/auth.ts
 ```
 
 ### 5. Commit
 
 ```bash
-/pe commit 初始化 adaptive workflow
+/project-engineer:pe commit 初始化 adaptive workflow
 ```
 
 ## Migration Notes
@@ -175,14 +176,14 @@ Hooks only detect, summarize, and remind. They do not rewrite documentation auto
 
 | Command | Purpose |
 | --- | --- |
-| `/pe init [--mode ...] <requirements>` | Adaptive initialization |
-| `/pe focus [hint]` | Determine the next highest-value task |
-| `/pe next [hint]` | Compatibility alias for `/focus` |
-| `/pe req-update <change>` | Adaptive requirement-change handling |
-| `/pe status-update [summary]` | Update the project-mode or legacy execution board |
-| `/pe arc-update [reason]` | Create or update `ARC.md` |
-| `/pe api-gen [path]` | Create or update `API.md` |
-| `/pe commit [hint]` | Generate and run a structured commit workflow |
+| `/project-engineer:pe init [--mode ...] <requirements>` | Adaptive initialization |
+| `/project-engineer:pe focus [hint]` | Determine the next highest-value task |
+| `/project-engineer:pe next [hint]` | Compatibility alias for `/focus` |
+| `/project-engineer:pe req-update <change>` | Adaptive requirement-change handling |
+| `/project-engineer:pe status-update [summary]` | Update the project-mode or legacy execution board |
+| `/project-engineer:pe arc-update [reason]` | Create or update `ARC.md` |
+| `/project-engineer:pe api-gen [path]` | Create or update `API.md` |
+| `/project-engineer:pe commit [hint]` | Generate and run a structured commit workflow |
 
 ## Design Philosophy
 
