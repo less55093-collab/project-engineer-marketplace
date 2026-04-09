@@ -100,8 +100,8 @@
 
 ## 工作原则 | Principles
 
-**默认深挖需求** — `/pe:init` 现在会先深度提问，再决定文档范围  
-**显式长访谈** — `/pe:deep-interview` 用于 PRD-first 或中途重新梳理需求  
+**默认深挖需求** — `/pe:init` 现在会先渐进式深度提问，再决定文档范围  
+**显式长访谈** — `/pe:deep-interview` 使用与 `/pe:init` 相同的访谈协议，但更偏 PRD-first / 中途重新梳理需求  
 **按复杂度升级** — 只有工作真的变复杂时，才进入 feature / project mode  
 **文档分工明确** — README 给人看，CLAUDE 给 AI 看，ARC/API/feature/PRD/status 按需启用  
 **遇到新需求** — 先执行 `/pe:req-update`，再决定是否升级模式  

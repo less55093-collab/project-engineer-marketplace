@@ -119,9 +119,9 @@ All commands use the `/pe:<command>` prefix:
 | **feature** | + `.project-engineer/FEATURE-{slug}.md` | |
 | **project** | + `PRD.md`, `.project-engineer/status.md` | |
 
-`/pe:init` now runs a deep interview by default, then auto-selects the mode based on analyzed complexity.
+`/pe:init` now runs the same guided deep-interview protocol by default, then auto-selects the mode based on analyzed complexity.
 
-`/pe:deep-interview` remains useful when you explicitly want a PRD-first path or need to re-open requirement clarification in the middle of an existing project.
+`/pe:deep-interview` remains useful as the same interview engine with a PRD-first path, or when you need to re-open requirement clarification in the middle of an existing project.
 
 ## Runtime Requirements | 运行前提
 

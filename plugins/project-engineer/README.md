@@ -80,9 +80,9 @@ claude plugin install pe@project-engineer-marketplace --scope user
 
 ## Modes | 模式
 
-`/pe:init` now runs a deep interview by default, then **automatically** selects the mode based on analyzed complexity. No manual mode selection needed.
+`/pe:init` now runs the same guided deep-interview protocol by default, then **automatically** selects the mode based on analyzed complexity. No manual mode selection needed.
 
-`/pe:deep-interview` remains available when you want an explicit PRD-first or mid-project re-interview path without treating it as a fresh init.
+`/pe:deep-interview` remains available as the same interview engine with a PRD-first or mid-project re-interview exit.
 
 | Mode | When | Artifacts |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ claude plugin install pe@project-engineer-marketplace --scope user
 ## Daily Workflow | 日常工作流
 
 1. **Check focus** — `/pe:focus` tells you the next best action based on current mode
-2. **Start a new idea** — `/pe:init` now asks the hard questions first, then lands the right artifact set
+2. **Start a new idea** — `/pe:init` now guides the user through deep clarification first, then lands the right artifact set
 3. **New requirements** — `/pe:req-update` classifies change as small/medium/large and routes accordingly
 4. **Update docs** — `/pe:arc-update` and `/pe:api-gen` when architecture or API changes
 5. **Commit** — `/pe:commit` checks which docs need syncing, then generates a conventional commit
