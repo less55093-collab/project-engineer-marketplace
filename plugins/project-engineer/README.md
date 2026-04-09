@@ -115,6 +115,24 @@ The doc-sync check (ARC, API, README, status board) happens inside `/pe:commit`,
 - Hooks require `bash` and `python3` (or `python`)
 - Windows: Git Bash + Python 3
 
+## Versioning
+
+When releasing a new plugin version, do not edit manifest versions by hand in multiple places.
+
+Use:
+
+```bash
+node scripts/bump-plugin-version.mjs 4.0.0
+```
+
+This keeps:
+
+- `plugins/project-engineer/.claude-plugin/plugin.json`
+- `.claude-plugin/marketplace.json` plugin entry version
+- `.claude-plugin/marketplace.json` metadata version
+
+in sync before validation and push.
+
 ## Design Philosophy
 
 - Deep questioning by default, adaptive artifacts after clarity

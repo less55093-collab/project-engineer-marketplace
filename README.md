@@ -164,9 +164,25 @@ claude plugin validate ./plugins/project-engineer
 ### Publish checklist | 发布检查
 
 1. Review owner info in `.claude-plugin/marketplace.json`
-2. Bump version in `plugins/project-engineer/.claude-plugin/plugin.json`
+2. Bump versions in both manifests with `node scripts/bump-plugin-version.mjs <version>`
 3. Run `claude plugin validate .`
 4. Push to GitHub, test the public install commands
+
+### Versioning | 版本管理
+
+Do not edit the plugin version in multiple files by hand.
+
+Use:
+
+```bash
+node scripts/bump-plugin-version.mjs 4.0.0
+```
+
+This updates:
+
+- `plugins/project-engineer/.claude-plugin/plugin.json`
+- `.claude-plugin/marketplace.json` plugin entry version
+- `.claude-plugin/marketplace.json` metadata version
 
 ## Notes
 
