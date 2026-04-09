@@ -80,7 +80,8 @@
 | 命令 | 触发时机 |
 |------|----------|
 | `/pe:focus` | 确定当前最值得做的事情（主命令） |
-| `/pe:deep-interview [想法]` | 当需求模糊但想彻底问清并产出 `PRD.md` 时 |
+| `/pe:init [想法]` | 新项目默认入口；现在会先深度提问，再决定生成哪些文档 |
+| `/pe:deep-interview [想法]` | 想显式进入 `PRD-first` 长访谈，或中途重新问透需求时 |
 | `/pe:req-update [描述]` | 用户提出新需求或需求变更时 |
 | `/pe:status-update` | 仅 project mode / legacy 项目使用 |
 | `/pe:arc-update [原因]` | 需要更新或生成 `ARC.md` 时 |
@@ -99,8 +100,8 @@
 
 ## 工作原则 | Principles
 
-**默认轻量** — 不要默认创建或维护 PRD / STATUS  
-**需求很模糊但必须问透时** — 优先执行 `/pe:deep-interview`，而不是直接进入实现  
+**默认深挖需求** — `/pe:init` 现在会先深度提问，再决定文档范围  
+**显式长访谈** — `/pe:deep-interview` 用于 PRD-first 或中途重新梳理需求  
 **按复杂度升级** — 只有工作真的变复杂时，才进入 feature / project mode  
 **文档分工明确** — README 给人看，CLAUDE 给 AI 看，ARC/API/feature/PRD/status 按需启用  
 **遇到新需求** — 先执行 `/pe:req-update`，再决定是否升级模式  

@@ -10,7 +10,7 @@ This directory contains the `pe` Claude Code plugin. It is distributed through t
 - `feature`: light mode plus `.project-engineer/FEATURE-{slug}.md`
 - `project`: feature-level structure plus `PRD.md` and `.project-engineer/status.md`
 
-The goal is to avoid defaulting every repo into heavyweight planning documents. Documentation expands only when complexity warrants it.
+The goal is to ask deeply by default, then avoid defaulting every repo into heavyweight artifacts unless complexity actually warrants it.
 
 ## Directory Layout
 
@@ -63,8 +63,8 @@ After editing plugin files, run `/reload-plugins` inside Claude Code.
 
 ## Important Files
 
-- `commands/init.md`: adaptive initialization and mode selection
-- `commands/deep-interview.md`: exhaustive requirement clarification and PRD generation
+- `commands/init.md`: deep-default initialization and mode selection
+- `commands/deep-interview.md`: explicit PRD-first or mid-project re-interview flow
 - `commands/focus.md`: primary next-step command
 - `commands/req-update.md`: small, medium, or large requirement-change routing
 - `commands/api-gen.md`: HTTP API documentation generation or refresh

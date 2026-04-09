@@ -8,7 +8,7 @@
 
 **pe 插件通过一套自适应文档体系解决这个问题。**
 
-`/pe:init` 先通过提问理清你的需求，再根据复杂度自动生成对应层级的工程文档：
+`/pe:init` 现在会先做一轮默认深度访谈，把需求问透，再根据复杂度自动生成对应层级的工程文档：
 
 - **CLAUDE.md** — AI 的工作说明书。每个新会话启动时读这一个文件，就能知道项目模式、文档结构、工作规则
 - **ARC.md** — 架构决策记录。技术栈、部署方案、数据模型、鉴权策略，写清楚一次，后续所有 AI 会话都能读懂
@@ -30,13 +30,14 @@ pe 的做法：
 
 | 问题 | pe 的解决方式 |
 | --- | --- |
-| 小项目被迫写重文档 | 三档自适应：light 只需 README + CLAUDE.md，复杂了再升级 |
+| 想法模糊，AI 一上来就做偏 | `init` 默认深挖需求，先把边界和非目标问清 |
+| 小项目被迫写重文档 | 三档自适应：问题问得深，但文档仍按复杂度生成 |
 | 文档过时 | 提交时自动检查哪些文档需要同步，列出清单 |
 | 格式不统一 | 模板驱动，所有项目遵循同一结构，AI 读一次就懂 |
 
 ## 核心优势
 
-**自适应，不强制** — 默认 light mode，只有 README + CLAUDE.md。不会给一个 todo app 生成 PRD 和执行看板。复杂度真的升高时，`/pe:req-update` 会自动建议升级到 feature 或 project mode。
+**先问透，再初始化** — `init` 默认不是轻问快生，而是先把目标用户、MVP、non-goals、约束和成功标准问清。问题问得深，但产出的文档仍然按复杂度自适应。
 
 **提交时检查，不是写代码时打断** — hooks 在你写代码时完全静默。只有执行 `/pe:commit` 时，才一次性分析"这轮改了哪些文件，哪些文档可能需要同步"，避免编码中途被不断弹出的提醒打断心流。
 
@@ -59,6 +60,31 @@ claude plugin marketplace add .
 claude plugin install pe@project-engineer-marketplace
 ```
 
+## Update | 升级
+
+如果你之前已经从 GitHub marketplace 安装过旧版本，推荐这样更新：
+
+```bash
+claude plugin marketplace update project-engineer-marketplace
+claude plugin update pe@project-engineer-marketplace --scope user
+```
+
+更新后重启 Claude Code，插件新版本才会生效。
+
+如果你不确定当前安装名或 scope，先检查：
+
+```bash
+claude plugin list
+```
+
+如果你看到旧插件名，例如 `project-engineer@project-engineer-marketplace`，说明本地还有历史安装残留。可以迁移到当前正式插件名 `pe`：
+
+```bash
+claude plugin uninstall project-engineer --scope user
+claude plugin marketplace update project-engineer-marketplace
+claude plugin install pe@project-engineer-marketplace --scope user
+```
+
 ## Usage | 用法
 
 All commands use the `/pe:<command>` prefix:
@@ -76,8 +102,8 @@ All commands use the `/pe:<command>` prefix:
 
 | Command | Purpose |
 | --- | --- |
-| `/pe:init <requirements>` | Gather requirements, auto-select mode, generate docs / 提问收集需求后自动初始化 |
-| `/pe:deep-interview <idea>` | Exhaustive requirement interview, then generate `PRD.md` / 深度需求访谈后产出 PRD |
+| `/pe:init <requirements>` | Deep-default requirement interview, then auto-select mode and generate docs / 默认深度访谈后初始化 |
+| `/pe:deep-interview <idea>` | Explicit PRD-first interview or re-interview / 显式 PRD 访谈或中途重访谈 |
 | `/pe:focus [hint]` | Next highest-value task / 下一步做什么 |
 | `/pe:req-update <change>` | Handle new requirements / 处理需求变更 |
 | `/pe:status-update [summary]` | Update execution board / 更新执行看板 |
@@ -93,9 +119,9 @@ All commands use the `/pe:<command>` prefix:
 | **feature** | + `.project-engineer/FEATURE-{slug}.md` | |
 | **project** | + `PRD.md`, `.project-engineer/status.md` | |
 
-`/pe:init` gathers requirements through questions first, then auto-selects the mode based on analyzed complexity.
+`/pe:init` now runs a deep interview by default, then auto-selects the mode based on analyzed complexity.
 
-`/pe:deep-interview` is the heavyweight path when you want the AI to keep asking until the product brief is actually clear enough to write a solid `PRD.md`.
+`/pe:deep-interview` remains useful when you explicitly want a PRD-first path or need to re-open requirement clarification in the middle of an existing project.
 
 ## Runtime Requirements | 运行前提
 
