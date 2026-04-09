@@ -45,8 +45,9 @@ pe 的做法：
 ## Install | 安装
 
 ```bash
-claude plugin marketplace add <github-owner>/<repo-name>
+claude plugin marketplace add less55093-collab/project-engineer-marketplace
 claude plugin install pe@project-engineer-marketplace
+
 ```
 
 Or from a local checkout | 或从本地仓库安装：
