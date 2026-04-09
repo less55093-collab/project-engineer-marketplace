@@ -24,7 +24,6 @@ All commands use the `/pe:<command>` prefix:
 
 ```bash
 /pe:init 我想做一个多人协作的任务管理工具
-/pe:init --mode light 做一个单页落地页
 /pe:focus
 /pe:req-update 新增邮件通知
 /pe:arc-update 新增鉴权中间件
@@ -35,9 +34,8 @@ All commands use the `/pe:<command>` prefix:
 
 | Command | Purpose |
 | --- | --- |
-| `/pe:init [--mode light\|feature\|project] <requirements>` | Adaptive initialization / 自适应初始化 |
+| `/pe:init <requirements>` | Gather requirements, auto-select mode, generate docs / 提问收集需求后自动初始化 |
 | `/pe:focus [hint]` | Next highest-value task / 下一步做什么 |
-| `/pe:next [hint]` | Alias for `/pe:focus` |
 | `/pe:req-update <change>` | Handle new requirements / 处理需求变更 |
 | `/pe:status-update [summary]` | Update execution board / 更新执行看板 |
 | `/pe:arc-update [reason]` | Create or update `ARC.md` / 更新架构文档 |
@@ -52,7 +50,7 @@ All commands use the `/pe:<command>` prefix:
 | **feature** | + `.project-engineer/FEATURE-{slug}.md` | |
 | **project** | + `PRD.md`, `.project-engineer/status.md` | |
 
-`/pe:init` auto-selects the mode based on complexity. Override with `--mode light|feature|project`.
+`/pe:init` gathers requirements through questions first, then auto-selects the mode based on analyzed complexity.
 
 ## Runtime Requirements | 运行前提
 

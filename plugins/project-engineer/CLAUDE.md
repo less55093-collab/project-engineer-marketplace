@@ -65,7 +65,6 @@ After editing plugin files, run `/reload-plugins` inside Claude Code.
 
 - `commands/init.md`: adaptive initialization and mode selection
 - `commands/focus.md`: primary next-step command
-- `commands/next.md`: compatibility alias for `/focus`
 - `commands/req-update.md`: small, medium, or large requirement-change routing
 - `commands/status-update.md`: execution board maintenance for project or legacy repos
 - `hooks/post-tool-use.sh`: per-write detection and reminder trigger

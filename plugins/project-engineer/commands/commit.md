@@ -1,25 +1,23 @@
 ---
-description: "自动分析 git 变更，生成符合 Conventional Commits 规范的提交信息并执行提交"
+description: "分析变更、检查文档同步、生成 Conventional Commits 提交"
 ---
 
 # /commit — 规范化 Git 提交
 
-Smart git commit with Conventional Commits format | 自动生成规范 commit message 并提交
+Smart git commit with doc-sync check and Conventional Commits format.
 
 ## Usage | 用法
 
 ```
-/commit           # 自动分析变更，生成 commit message 并提交
-/commit [hint]    # 带提示词，帮助生成更准确的 message
+/pe:commit           # 自动分析变更，检查文档同步，生成 commit message 并提交
+/pe:commit [hint]    # 带提示词，帮助生成更准确的 message
 ```
 
 `$ARGUMENTS` — 可选，补充描述本次变更意图
 
 ---
 
-## Execution Steps | 执行步骤
-
-### Step 1: Check Git Status | 检查 Git 状态
+## Step 1: Check Git Status | 检查 Git 状态
 
 Run `git status` and `git diff --staged` to understand:
 - Which files are staged
@@ -28,7 +26,63 @@ Run `git status` and `git diff --staged` to understand:
 
 If nothing is staged, run `git add -A` first (ask user to confirm if >20 files changed).
 
-### Step 2: Analyze Changes | 分析变更内容
+---
+
+## Step 2: Doc-Sync Check | 文档同步检查
+
+读取 `.claude-tmp/session-changes.log`（由 PostToolUse hook 自动记录），对本次会话修改的文件做去重后，按以下规则检测哪些文档可能需要同步。
+
+### 架构级变更检测
+
+如果修改的文件路径包含以下任一关键词，标记为**可能需要更新 ARC.md**：
+
+`package.json`, `go.mod`, `requirements.txt`, `pyproject.toml`, `Cargo.toml`, `pom.xml`, `docker-compose`, `Dockerfile`, `schema`, `migration`, `prisma`, `models/`, `database/`, `db/`, `middleware/`
+
+### API 变更检测
+
+如果修改的文件路径包含以下任一关键词，标记为**可能需要更新 API.md**：
+
+`routes/`, `controllers/`, `handlers/`, `api/`, `endpoints/`
+
+### README 变更检测
+
+如果修改涉及以下任一方面，标记为**可能需要更新 README.md**：
+
+- 安装方式、启动步骤相关文件（`package.json`, `docker-compose`, `Makefile`, `setup.*`）
+- 环境变量配置（`.env.example`, `config/`）
+- 目录结构有显著变化（新增或删除了顶级目录）
+
+### 执行看板检测
+
+- 若存在 `.project-engineer/status.md` → 标记为**可能需要更新执行看板**
+- 若存在 legacy `STATUS.md` → 同上
+
+### 输出格式
+
+如果检测到需要同步的文档，在 commit message 预览之前输出：
+
+```text
+📋 Doc-sync check
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+本次会话修改了 N 个代码文件：
+- file1.ts
+- file2.ts
+- ...
+
+可能需要同步的文档：
+- [ ] ARC.md — 检测到架构级变更（schema, models/, ...）
+- [ ] API.md — 检测到路由变更（routes/, controllers/, ...）
+- [ ] README.md — 检测到安装/启动相关变更
+- [ ] .project-engineer/status.md — 项目有执行看板
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+先同步文档再提交，还是直接提交？
+```
+
+如果没有检测到任何需要同步的文档，跳过此步，直接进入 Step 3。
+
+---
+
+## Step 3: Analyze Changes | 分析变更内容
 
 Read the diff and categorize the change type:
 
@@ -45,7 +99,9 @@ Read the diff and categorize the change type:
 
 Scope is optional — use the module/feature name if clear (e.g. `feat(auth):`, `fix(api):`).
 
-### Step 3: Generate Commit Message | 生成 Commit Message
+---
+
+## Step 4: Generate Commit Message | 生成 Commit Message
 
 Format:
 ```
@@ -58,13 +114,12 @@ Format:
 
 Rules | 规则:
 - Subject: ≤50 characters, imperative mood, no period at end
-  主题：≤50 字符，用祈使语气（"add" not "added"），不加句号
 - Body: explain *why*, not *what*. Wrap at 72 chars.
-  正文：解释「为什么」而非「做了什么」，72 字换行
 - Footer: reference issues if applicable (`Closes #123`, `Refs #456`)
-  尾部：引用相关 issue
 
-### Step 4: Show Preview & Confirm | 预览并确认
+---
+
+## Step 5: Show Preview & Confirm | 预览并确认
 
 Display the generated message:
 ```
@@ -86,7 +141,9 @@ Confirm commit? [Y/n/edit]
 - **n** — abort
 - **edit** — let user modify the message
 
-### Step 5: Execute & Report | 执行并汇报
+---
+
+## Step 6: Execute & Cleanup | 执行并清理
 
 After commit:
 ```
@@ -94,6 +151,10 @@ After commit:
 📦 Files: 4 changed, 127 insertions(+), 23 deletions(-)
 🔖 Hash: a3f9c2d
 ```
+
+清理变更日志：
+- 删除 `.claude-tmp/session-changes.log`
+- 如果 `.claude-tmp/` 为空，删除该目录
 
 Optionally ask: "Push to remote? (git push)"
 
@@ -103,7 +164,7 @@ Optionally ask: "Push to remote? (git push)"
 
 ```bash
 feat(user): add avatar upload endpoint
-fix(api): handle null response in payment webhook  
+fix(api): handle null response in payment webhook
 refactor(db): extract query builder into separate module
 docs: update API.md with new auth endpoints
 chore(deps): upgrade express to 4.18.2

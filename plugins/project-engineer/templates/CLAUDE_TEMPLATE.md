@@ -71,15 +71,7 @@
 
 ## 会话结束 | Session End
 
-每次会话结束前，依次检查：
-
-- [ ] 若安装方式、启动步骤、环境变量、用户可见功能、目录结构变化 → 更新 `README.md`
-- [ ] 若架构边界变化且 `ARC.md` 存在或现在值得创建 → 更新 `ARC.md`
-- [ ] 若接口契约变化且 `API.md` 存在或现在值得创建 → 更新 `API.md`
-- [ ] 若当前在 feature mode → 更新相关 `.project-engineer/FEATURE-{slug}.md`
-- [ ] 若当前在 project mode → 更新 `.project-engineer/status.md`
-- [ ] 若当前仍是 legacy 项目 → 兼容更新 `STATUS.md`，并视情况提示迁移
-- [ ] 执行 `/commit`
+执行 `/pe:commit`。commit 流程会自动检查哪些文档需要同步（README、ARC、API、执行看板），在提交前给出提醒。
 
 ---
 
@@ -87,13 +79,12 @@
 
 | 命令 | 触发时机 |
 |------|----------|
-| `/focus` | 确定当前最值得做的事情（主命令） |
-| `/next` | 兼容旧工作流，内部应视作 `/focus` |
-| `/req-update [描述]` | 用户提出新需求或需求变更时 |
-| `/status-update` | 仅 project mode / legacy 项目使用 |
-| `/arc-update [原因]` | 需要更新或生成 `ARC.md` 时 |
-| `/api-gen [路径]` | 需要更新或生成 `API.md` 时 |
-| `/commit [提示]` | 提交代码 |
+| `/pe:focus` | 确定当前最值得做的事情（主命令） |
+| `/pe:req-update [描述]` | 用户提出新需求或需求变更时 |
+| `/pe:status-update` | 仅 project mode / legacy 项目使用 |
+| `/pe:arc-update [原因]` | 需要更新或生成 `ARC.md` 时 |
+| `/pe:api-gen [路径]` | 需要更新或生成 `API.md` 时 |
+| `/pe:commit [提示]` | 检查文档同步 + 提交代码 |
 
 ---
 
@@ -110,8 +101,8 @@
 **默认轻量** — 不要默认创建或维护 PRD / STATUS  
 **按复杂度升级** — 只有工作真的变复杂时，才进入 feature / project mode  
 **文档分工明确** — README 给人看，CLAUDE 给 AI 看，ARC/API/feature/PRD/status 按需启用  
-**遇到新需求** — 先执行 `/req-update`，再决定是否升级模式  
+**遇到新需求** — 先执行 `/pe:req-update`，再决定是否升级模式  
 **遇到对外行为变化** — 同步更新 `README.md`  
 **遇到架构冲突** — 更新 `ARC.md` 或提出需要新建 `ARC.md`  
 **遇到阻塞** — 若有 project board，记录到 `.project-engineer/status.md` 或 legacy `STATUS.md`  
-**优先 /focus** — 不要再把 `/next` 当默认入口
+**优先 /pe:focus** — 主推进命令
