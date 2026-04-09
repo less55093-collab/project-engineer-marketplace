@@ -14,6 +14,8 @@
 - **ARC.md** — 架构决策记录。技术栈、部署方案、数据模型、鉴权策略，写清楚一次，后续所有 AI 会话都能读懂
 - **API.md** — 接口契约。前后端分离项目的 HTTP 接口文档，从代码自动扫描生成
 
+如果你的需求还很模糊，但你想先把产品定义问透，再开始工程化，`/pe:deep-interview` 会走一条更重的路径：一轮只问一个关键问题，持续追问边界、非目标、优先级和成功标准，最后生成 `PRD.md`。
+
 结果是：**任何一个没有上下文的 AI 会话，读完 CLAUDE.md 和 ARC.md 就能直接干活。**
 
 ## 为什么不用 Cursor Rules / 手写 CLAUDE.md
@@ -62,6 +64,7 @@ All commands use the `/pe:<command>` prefix:
 
 ```bash
 /pe:init 我想做一个多人协作的任务管理工具
+/pe:deep-interview 我想做一个面向销售团队的 AI 外呼管理平台，但你先把我问透
 /pe:focus
 /pe:req-update 新增邮件通知
 /pe:arc-update 新增鉴权中间件
@@ -73,6 +76,7 @@ All commands use the `/pe:<command>` prefix:
 | Command | Purpose |
 | --- | --- |
 | `/pe:init <requirements>` | Gather requirements, auto-select mode, generate docs / 提问收集需求后自动初始化 |
+| `/pe:deep-interview <idea>` | Exhaustive requirement interview, then generate `PRD.md` / 深度需求访谈后产出 PRD |
 | `/pe:focus [hint]` | Next highest-value task / 下一步做什么 |
 | `/pe:req-update <change>` | Handle new requirements / 处理需求变更 |
 | `/pe:status-update [summary]` | Update execution board / 更新执行看板 |
@@ -89,6 +93,8 @@ All commands use the `/pe:<command>` prefix:
 | **project** | + `PRD.md`, `.project-engineer/status.md` | |
 
 `/pe:init` gathers requirements through questions first, then auto-selects the mode based on analyzed complexity.
+
+`/pe:deep-interview` is the heavyweight path when you want the AI to keep asking until the product brief is actually clear enough to write a solid `PRD.md`.
 
 ## Runtime Requirements | 运行前提
 

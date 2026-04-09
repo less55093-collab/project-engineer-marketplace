@@ -33,6 +33,7 @@ After editing, run `/reload-plugins` in the session.
 
 ```bash
 /pe:init 我想做一个多人协作的任务管理工具
+/pe:deep-interview 我想做一个面向销售团队的 AI 外呼管理平台，但你先把我问透
 /pe:focus
 /pe:req-update 新增邮件通知
 /pe:arc-update 新增鉴权中间件
@@ -44,6 +45,7 @@ After editing, run `/reload-plugins` in the session.
 | Command | Purpose |
 | --- | --- |
 | `/pe:init <requirements>` | Gather requirements via questions, auto-select mode, generate docs |
+| `/pe:deep-interview <idea>` | Exhaustive requirement interview, then generate or update `PRD.md` |
 | `/pe:focus [hint]` | Determine the next highest-value task |
 | `/pe:req-update <change>` | Adaptive requirement-change handling |
 | `/pe:status-update [summary]` | Update execution board (project mode) |
@@ -55,6 +57,8 @@ After editing, run `/reload-plugins` in the session.
 
 `/pe:init` collects requirements through questions, then **automatically** selects the mode based on analyzed complexity. No manual mode selection needed.
 
+`/pe:deep-interview` is the heavyweight path: one question per round, aggressive boundary clarification, and `PRD.md` output once the idea is actually clear enough to execute.
+
 | Mode | When | Artifacts |
 | --- | --- | --- |
 | **light** | Small project, ≤2 core features | `README.md`, `CLAUDE.md`, optional `ARC.md`/`API.md` |
@@ -64,9 +68,10 @@ After editing, run `/reload-plugins` in the session.
 ## Daily Workflow | 日常工作流
 
 1. **Check focus** — `/pe:focus` tells you the next best action based on current mode
-2. **New requirements** — `/pe:req-update` classifies change as small/medium/large and routes accordingly
-3. **Update docs** — `/pe:arc-update` and `/pe:api-gen` when architecture or API changes
-4. **Commit** — `/pe:commit` checks which docs need syncing, then generates a conventional commit
+2. **Need a real product brief first** — `/pe:deep-interview` asks the hard questions and lands on `PRD.md`
+3. **New requirements** — `/pe:req-update` classifies change as small/medium/large and routes accordingly
+4. **Update docs** — `/pe:arc-update` and `/pe:api-gen` when architecture or API changes
+5. **Commit** — `/pe:commit` checks which docs need syncing, then generates a conventional commit
 
 ## Hooks | 自动行为
 

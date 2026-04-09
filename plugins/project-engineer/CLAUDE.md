@@ -64,8 +64,10 @@ After editing plugin files, run `/reload-plugins` inside Claude Code.
 ## Important Files
 
 - `commands/init.md`: adaptive initialization and mode selection
+- `commands/deep-interview.md`: exhaustive requirement clarification and PRD generation
 - `commands/focus.md`: primary next-step command
 - `commands/req-update.md`: small, medium, or large requirement-change routing
+- `commands/api-gen.md`: HTTP API documentation generation or refresh
 - `commands/status-update.md`: execution board maintenance for project or legacy repos
 - `hooks/post-tool-use.sh`: per-write detection and reminder trigger
 - `hooks/session-end.sh`: session summary and sync reminder
