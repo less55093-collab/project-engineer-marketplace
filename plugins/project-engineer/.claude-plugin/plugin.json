@@ -1,6 +1,6 @@
 {
   "name": "pe",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Adaptive project-engineering plugin with light, feature, and project modes plus sync reminders",
   "author": {
     "name": "Project Engineer Maintainers"
