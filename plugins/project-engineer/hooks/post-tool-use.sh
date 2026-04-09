@@ -71,10 +71,10 @@ done
 
 $IS_ARC_CHANGE && echo "
 🏗️  [project-engineer] 架构级文件变更：$MODIFIED_FILE
-→ 如当前项目已有 ARC.md，请执行 /arc-update 同步；若还没有 ARC.md 且这次决策值得保留，也可以现在创建它。
+→ 如当前项目已有 ARC.md，请执行 /pe:arc-update 同步；若还没有 ARC.md 且这次决策值得保留，也可以现在创建它。
 "
 
 $IS_API_CHANGE && echo "
 📡 [project-engineer] API 路由变更：$MODIFIED_FILE
-→ 如当前项目存在 HTTP 接口，请执行 /api-gen 更新或生成 API.md。
+→ 如当前项目存在 HTTP 接口，请执行 /pe:api-gen 更新或生成 API.md。
 "

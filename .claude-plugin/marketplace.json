@@ -9,9 +9,9 @@
   },
   "plugins": [
     {
-      "name": "project-engineer",
+      "name": "pe",
       "source": "./plugins/project-engineer",
-      "version": "2.0.1",
+      "version": "3.0.0",
       "description": "Adaptive project-engineering plugin with light, feature, and project modes plus sync reminders",
       "author": {
         "name": "Project Engineer Maintainers"

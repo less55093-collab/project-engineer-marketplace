@@ -29,7 +29,7 @@ fi
 if [ -n "$BOARD_PATH" ]; then
   BOARD_NOTE=$'1. 根据以上变更，更新 '"${BOARD_PATH}"$'（'"${BOARD_LABEL}"$'）中的当前 focus / 任务状态 / blocker\n2. 如适用，更新整体进度并检查是否应归档 execution board'
 else
-  BOARD_NOTE=$'1. 当前没有激活 execution board\n2. 如果这轮工作已明显扩展范围，请考虑通过 /req-update 升级到 feature 或 project mode'
+  BOARD_NOTE=$'1. 当前没有激活 execution board\n2. 如果这轮工作已明显扩展范围，请考虑通过 /pe:req-update 升级到 feature 或 project mode'
 fi
 
 cat << EOF

@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This directory contains the `project-engineer` Claude Code plugin. It is distributed through the marketplace repo at the workspace root.
+This directory contains the `pe` Claude Code plugin. It is distributed through the marketplace repo at the workspace root.
 
 ## Overview
 
-`project-engineer` is an adaptive project-engineering plugin for Web and API work.
+`pe` is an adaptive project-engineering plugin for Web and API work.
 
 - `light`: `README.md` plus `CLAUDE.md`
 - `feature`: light mode plus `.project-engineer/FEATURE-{slug}.md`

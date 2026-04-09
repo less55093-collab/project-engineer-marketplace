@@ -1,6 +1,64 @@
 # project-engineer-marketplace
 
-Claude Code marketplace repository for `project-engineer`, an adaptive project-engineering plugin that stays lightweight by default and adds more structure only when the work becomes complex enough to justify it.
+Claude Code marketplace for the **pe** plugin — an adaptive project-engineering workflow that stays lightweight by default and adds structure only when complexity earns it.
+
+给 Claude Code 用的自适应工程化插件。默认轻量，复杂度升高时才逐步升级到 `feature` 或 `project` 模式。
+
+## Install | 安装
+
+```bash
+claude plugin marketplace add <github-owner>/<repo-name>
+claude plugin install pe@project-engineer-marketplace
+```
+
+Or from a local checkout | 或从本地仓库安装：
+
+```bash
+claude plugin marketplace add .
+claude plugin install pe@project-engineer-marketplace
+```
+
+## Usage | 用法
+
+All commands use the `/pe:<command>` prefix:
+
+```bash
+/pe:init 我想做一个多人协作的任务管理工具
+/pe:init --mode light 做一个单页落地页
+/pe:focus
+/pe:req-update 新增邮件通知
+/pe:arc-update 新增鉴权中间件
+/pe:api-gen routes/auth.ts
+/pe:status-update 完成登录 API
+/pe:commit 初始化 adaptive workflow
+```
+
+| Command | Purpose |
+| --- | --- |
+| `/pe:init [--mode light\|feature\|project] <requirements>` | Adaptive initialization / 自适应初始化 |
+| `/pe:focus [hint]` | Next highest-value task / 下一步做什么 |
+| `/pe:next [hint]` | Alias for `/pe:focus` |
+| `/pe:req-update <change>` | Handle new requirements / 处理需求变更 |
+| `/pe:status-update [summary]` | Update execution board / 更新执行看板 |
+| `/pe:arc-update [reason]` | Create or update `ARC.md` / 更新架构文档 |
+| `/pe:api-gen [path]` | Create or update `API.md` / 更新接口文档 |
+| `/pe:commit [hint]` | Structured commit / 规范化提交 |
+
+## Modes | 模式
+
+| Mode | Always-on | Conditional |
+| --- | --- | --- |
+| **light** (default) | `README.md`, `CLAUDE.md` | `ARC.md`, `API.md` |
+| **feature** | + `.project-engineer/FEATURE-{slug}.md` | |
+| **project** | + `PRD.md`, `.project-engineer/status.md` | |
+
+`/pe:init` auto-selects the mode based on complexity. Override with `--mode light|feature|project`.
+
+## Runtime Requirements | 运行前提
+
+- Commands are Markdown-based, no build step needed
+- Hooks require `bash` and `python3` (or `python`)
+- Windows: use Git Bash + Python 3
 
 ## Repository Layout
 
@@ -17,74 +75,31 @@ Claude Code marketplace repository for `project-engineer`, an adaptive project-e
         └── README.md
 ```
 
-This matches Claude Code's current marketplace layout:
-- the marketplace manifest lives at `.claude-plugin/marketplace.json`
-- the plugin manifest lives at `plugins/project-engineer/.claude-plugin/plugin.json`
-- commands, hooks, and templates stay at the plugin root, not inside `.claude-plugin/`
+## Development | 开发
 
-## Install From GitHub
-
-After publishing this repository to GitHub:
+### Local dev loop | 本地开发
 
 ```bash
-claude plugin marketplace add <github-owner>/<repo-name>
-claude plugin install project-engineer@project-engineer-marketplace
+claude --plugin-dir ./plugins/project-engineer
 ```
 
-Notes:
-- `<github-owner>/<repo-name>` is the GitHub repository location.
-- `project-engineer-marketplace` is the marketplace name exposed to Claude Code users.
-- `project-engineer` is the plugin name users install from that marketplace.
+Edit files, then run `/reload-plugins` in the session.
 
-## Local Validate and Test
-
-Validate both the marketplace and the plugin:
+### Validate | 验证
 
 ```bash
 claude plugin validate .
 claude plugin validate ./plugins/project-engineer
 ```
 
-Install from the local checkout:
+### Publish checklist | 发布检查
 
-```bash
-claude plugin marketplace add .
-claude plugin install project-engineer@project-engineer-marketplace
-```
-
-After installation, the stable invocation form is:
-
-```bash
-/project-engineer:pe help
-```
-
-Short-form `/pe ...` may depend on Claude Code's current plugin short-name resolution behavior.
-
-Fast development loop without installing through the marketplace:
-
-```bash
-claude --plugin-dir ./plugins/project-engineer
-```
-
-After editing plugin files in a running session, use `/reload-plugins`.
-
-## Publish Checklist
-
-1. Review `.claude-plugin/marketplace.json` owner metadata.
-2. Bump the plugin version in `plugins/project-engineer/.claude-plugin/plugin.json` when behavior changes.
-3. Keep the marketplace entry version aligned with the plugin version when you want marketplace metadata to show the same release.
-4. Run `claude plugin validate .` before every release.
-5. Push the repository to GitHub, then test the public install commands once.
-
-## Runtime Requirements
-
-- Commands are Markdown-based and need no build step.
-- Hooks require `bash`.
-- `plugins/project-engineer/hooks/post-tool-use.sh` requires `python3` or `python`.
-- On Windows, Git Bash plus Python 3 is the safest setup for hook execution.
+1. Review owner info in `.claude-plugin/marketplace.json`
+2. Bump version in `plugins/project-engineer/.claude-plugin/plugin.json`
+3. Run `claude plugin validate .`
+4. Push to GitHub, test the public install commands
 
 ## Notes
 
-- `.omx/` is local orchestration state and is ignored for release hygiene.
-- `.claude-tmp/` is runtime scratch data created by hooks and should not be committed.
-- No license file is included yet. Choose one before a public open-source release if you want downstream users to have explicit reuse rights.
+- `.claude-tmp/` is hook runtime scratch data, do not commit
+- No `LICENSE` file yet — add one before public release
