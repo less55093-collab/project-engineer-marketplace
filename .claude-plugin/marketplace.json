@@ -5,13 +5,13 @@
   },
   "metadata": {
     "description": "Claude Code marketplace for the adaptive project-engineering workflow plugin",
-    "version": "4.0.2"
+    "version": "4.0.3"
   },
   "plugins": [
     {
       "name": "pe",
       "source": "./plugins/project-engineer",
-      "version": "4.0.2",
+      "version": "4.0.3",
       "description": "Adaptive project-engineering plugin with light, feature, and project modes plus sync reminders",
       "author": {
         "name": "Project Engineer Maintainers"
